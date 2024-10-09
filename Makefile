@@ -1,7 +1,7 @@
 TAG     := prolog-testbed
 PROG    ?= test.pl
 MAIN    ?= test
-PROLOGS := swi
+PROLOGS := gnu scryer swi
 
 .PHONY: $(PROLOGS) run build all
 run: build
@@ -11,5 +11,9 @@ build:
 
 all: $(PROLOGS)
 
+gnu: $(PROG)
+	env TRAILSZ=999999 GLOBALSZ=999999 gprolog --consult-file $< --query-goal '$(MAIN),halt'
+scryer: $(PROG)
+	scryer-prolog $< -g '$(MAIN),halt'
 swi: $(PROG)
 	swipl -l $< -g '$(MAIN),halt'
