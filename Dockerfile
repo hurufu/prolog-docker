@@ -5,7 +5,7 @@ COPY repo /var/cache/prolog
 WORKDIR /var/cache/prolog
 RUN repo-add prolog.db.tar.xz *.pkg.*
 
-RUN pacman -Syu --noconfirm make patch swi-prolog gprolog scryer-prolog
+RUN pacman -Syu --noconfirm make swi-prolog gprolog scryer-prolog ciao-lang
 
 RUN useradd -ms /bin/sh user
 RUN install --owner=user --mode=750 -d /home/user/prolog/repo
