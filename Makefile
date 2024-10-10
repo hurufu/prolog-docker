@@ -11,18 +11,20 @@ AUR_ciao    := ciao-lang
 AUR_gnu     := gprolog
 AUR_trealla := trealla
 AUR_scryer  := scryer-prolog
-AUR_swi     := swi-prolog-devel
+AUR_swi     := swi-prolog-git
+
 
 ###############################################################################
-.PHONY: run build
+.PHONY: run build clean
 run: build
 	docker run -it $(DOCKER_TAG)
-build: Dockerfile
+build: repo Dockerfile
 	docker build --tag $(DOCKER_TAG) .
 Dockerfile: export PACKAGES := $(foreach v,$(addprefix AUR_,$(PROLOGS)),$($v))
 Dockerfile: $(MAKEFILE_LIST)
-%: %.in
-	envsubst <$< >$@
+clean: JUNK = $(wildcard pkgs repo Dockerfile)
+clean:
+	$(if $(JUNK),$(RM) -r $(JUNK))
 
 
 ##############################################################################
@@ -43,9 +45,21 @@ swi: $(PROG)
 
 ###############################################################################
 .PHONY: repo aur-% git-%
-repo: $(addprefix aur-,$(filter-out swi,$(PROLOGS)))
-	find pkgs -name '*.pkg.*' -exec mv '{}' repo '+'
+repo: $(addprefix aur-,$(PROLOGS)) | repo/
+	find pkgs -name '*.pkg.*' -exec mv --verbose '{}' repo '+'
 aur-%: git-%
-	env -C pkgs/$(AUR_$*) ionice -c3 nice -n19 makepkg -srCc
-git-%:
-	env -C pkgs git clone https://aur.archlinux.org/$(AUR_$*).git
+	env -C pkgs/$* ionice -c3 nice -n19 makepkg -srf
+git-%: | pkgs/%/.git
+	env -C pkgs/$* git pull
+pkgs/%/.git: | pkgs/
+	git clone https://aur.archlinux.org/$(AUR_$*).git pkgs/$*
+
+pkgver="$(sed -n '/pkgver/ s/.*= *//p' < .SRCINFO)"
+
+
+# Utils #######################################################################
+%: %.in
+	envsubst <$< >$@
+
+%/:
+	mkdir -p $@
