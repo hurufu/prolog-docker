@@ -58,11 +58,11 @@ Pop, Doge (JavaScript, Python, Java), Yap, XSB.
   * [BIM Prolog][m] – A lot of information, but no sources nor executables.
   * [Jekejeke Prolog][n] – I have found archived page, but .jar file wasn't
     archived and I don't like downloading it from random sites on internet.
-  * Ichiban Prolog[o]
 
 
 ## Still needs research
 
+  * Ichiban Prolog[o]
   * Other systems: https://www.softwarepreservation.org/projects/prolog/
   * https://gitlab.com/gule-log/guile-log
   * https://github.com/DouglasRMiles/QuProlog
