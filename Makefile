@@ -14,6 +14,7 @@ AUR_gnu     := gprolog
 AUR_scryer  := scryer-prolog
 AUR_swi     := swi-prolog-git
 AUR_trealla := trealla
+AUR_prologs := prologs
 
 PREFIX      ?= /usr/local
 DESTDIR     ?= /
@@ -26,8 +27,6 @@ run: build
 	docker run -v "$(PWD):/home/user/prolog" -it $(DOCKER_TAG)
 build: Dockerfile
 	docker build --compress --build-arg USER="$(shell id -u)" --build-arg GROUP="$(shell id -g)" --tag $(DOCKER_TAG) .
-Dockerfile: export PACKAGES := $(foreach v,$(addprefix AUR_,$(PROLOGS)),$($v))
-Dockerfile: VARS := $$PACKAGES
 
 clean: JUNK = $(wildcard pkgs repo Dockerfile)
 clean:
@@ -82,7 +81,7 @@ yap: $(PROG)
 
 # AUR packages ################################################################
 .PHONY: repo aur-% git-%
-repo: $(addprefix aur-,$(PROLOGS)) | repo/
+repo: $(addprefix aur-,$(PROLOGS)) aur-prologs | repo/
 	find pkgs -name '*.pkg.*' -exec mv --verbose '{}' $| ';'
 aur-%: git-%
 	env -C pkgs/$* ionice -c3 nice -n19 makepkg -srCcf
