@@ -23,9 +23,9 @@ BINDIR      := $(DESTDIR)$(PREFIX)/bin
 # Docker image ################################################################
 .PHONY: run build clean
 run: build
-	docker run -it $(DOCKER_TAG)
+	docker run -v "$(PWD):/home/user/prolog" -it $(DOCKER_TAG)
 build: Dockerfile
-	docker build --compress --tag $(DOCKER_TAG) .
+	docker build --compress --build-arg USER="$(shell id -u)" --build-arg GROUP="$(shell id -g)" --tag $(DOCKER_TAG) .
 Dockerfile: export PACKAGES := $(foreach v,$(addprefix AUR_,$(PROLOGS)),$($v))
 Dockerfile: VARS := $$PACKAGES
 

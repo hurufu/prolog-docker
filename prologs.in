@@ -29,4 +29,4 @@ FILE=${*:-test.pl}
 
 # PROLOGS variable is meant to be expanded to multiple arguments
 # shellcheck disable=SC2086
-docker run -v "$(realpath $FILE):/home/user/prolog/$FILE" -it '$DOCKER_TAG' "-O${SYNC-}" "-j${JOBS:-4}" ${KEEP+-k} PROG="${FILE}" MAIN="${GOAL:-test}" ${PROLOGS:-all}
+docker run -v "$(pwd):/home/user/prolog/data" -it '$DOCKER_TAG' "-O${SYNC-}" "-j${JOBS:-4}" ${KEEP+-k} PROG="${FILE}" MAIN="${GOAL:-test}" ${PROLOGS:-all}
