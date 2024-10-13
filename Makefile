@@ -91,20 +91,6 @@ pkgs/%/.git: | pkgs/
 	git clone https://aur.archlinux.org/$(AUR_$*).git $|$*
 
 
-# Entry point #################################################################
-.PHONY: install
-install: $(BINDIR)/prologs build
-prologs: export DOCKER_TAG  := $(DOCKER_TAG)
-prologs: export EXP_PROLOGS := $(PROLOGS)
-prologs: VARS := $$DOCKER_TAG,$$EXP_PROLOGS
-
-
 # Utils #######################################################################
-%: %.in $(MAKEFILE_LIST)
-	envsubst '$(VARS)' <$< >$@
-
 %/:
 	mkdir -p $@
-
-$(BINDIR)/%: %
-	install -D --mode=555 $< $@
