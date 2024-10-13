@@ -49,7 +49,7 @@ trealla: $(PROG)
 # AUR packages ################################################################
 .PHONY: repo aur-% git-%
 repo: $(addprefix aur-,$(PROLOGS)) | repo/
-	find pkgs -name '*.pkg.*' -exec mv --verbose '{}' $| '+'
+	find pkgs -name '*.pkg.*' -exec mv --verbose '{}' $| ';'
 aur-%: git-%
 	env -C pkgs/$* ionice -c3 nice -n19 makepkg -sr
 git-%: | pkgs/%/.git
