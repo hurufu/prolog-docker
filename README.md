@@ -29,6 +29,15 @@ pre-build binaries to simplify it.
 
         make run PROG=myprog.pl MAIN=mymain
 
+ 3. If building and runnign tests went Ok you can install entry point script:
+
+        make install
+
+    Then you can go to any folder in just call to run `myprog.pl` by all Prologs:
+
+        prologs -g mygoal myprog.pl
+
+    Read its help `prologs -h` for more options.
 
 ## Currently working
 
