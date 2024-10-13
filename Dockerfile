@@ -16,10 +16,8 @@ ARG GROUP
 RUN groupadd -g $GROUP user
 RUN useradd -ms /bin/sh -u $USER -g user user
 
-COPY --chmod=0755  Makefile /usr/share/prologs/rules.mk
-
 USER user
 WORKDIR /home/user/prolog
 
-ENTRYPOINT ["remake"]
-CMD ["-f/usr/share/prologs/rules.mk", "-k", "-j4", "-O", "--profile", "all"]
+ENTRYPOINT ["prologs"]
+CMD ["-k", "-j4", "-O"]
