@@ -1,11 +1,13 @@
 FROM archlinux:latest
 
+RUN pacman -Syu --noconfirm make
+
 COPY pacman.conf /etc
 COPY repo /var/cache/prolog
 WORKDIR /var/cache/prolog
 RUN repo-add prolog.db.tar.xz *.pkg.*
 
-RUN pacman -Syu --noconfirm make $PACKAGES
+RUN pacman -Sy --noconfirm $PACKAGES
 
 RUN useradd -ms /bin/sh user
 RUN install --owner=user --mode=750 -d /home/user/prolog/repo
@@ -15,4 +17,4 @@ WORKDIR /home/user/prolog
 COPY --chown=user Makefile test.pl .
 
 ENTRYPOINT ["make"]
-CMD ["all"]
+CMD ["-k", "-j4", "-O", "all"]
