@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+usage() {
+    cat <<-EOT
+	Usage:
+	    $0 [-h] [-k] [-j jobs] [-p 'prolog1 prolog2 ...'] [-g goal] -- file
+	
+	Supported Prologs:
+	    $EXP_PROLOGS
+EOT
+}
+
+while getopts hp:g:kj: op
+do
+    case $op in
+        p) PROLOGS="$OPTARG" ;;
+        g) GOAL="$OPTARG" ;;
+        k) KEEP=1 ;;
+        j) JOBS="$OPTARG" ;;
+        h) usage; exit ;;
+        ?) usage; exit 1;;
+    esac
+done
+shift $((OPTIND - 1))
+FILE=${*:-test.pl}
+
+# PROLOGS variable is meant to be expanded to multiple arguments
+# shellcheck disable=SC2086
+docker run -v "$(realpath $FILE):/home/user/prolog/$FILE" -it '$DOCKER_TAG' -O "-j${JOBS:-4}" ${KEEP+-k} PROG="${FILE}" MAIN="${GOAL:-test}" ${PROLOGS:-all}

@@ -23,7 +23,7 @@ run: build
 build: Dockerfile
 	docker build --compress --tag $(DOCKER_TAG) .
 Dockerfile: export PACKAGES := $(foreach v,$(addprefix AUR_,$(PROLOGS)),$($v))
-Dockerfile: $(MAKEFILE_LIST)
+Dockerfile: VARS := $$PACKAGES
 
 clean: JUNK = $(wildcard pkgs repo Dockerfile)
 clean:
@@ -88,9 +88,15 @@ pkgs/%/.git: | pkgs/
 	git clone https://aur.archlinux.org/$(AUR_$*).git $|$*
 
 
+# Entry point #################################################################
+prologs: export DOCKER_TAG  := $(DOCKER_TAG)
+prologs: export EXP_PROLOGS := $(PROLOGS)
+prologs: VARS := $$DOCKER_TAG,$$EXP_PROLOGS
+
+
 # Utils #######################################################################
-%: %.in
-	envsubst <$< >$@
+%: %.in $(MAKEFILE_LIST)
+	envsubst '$(VARS)' <$< >$@
 
 %/:
 	mkdir -p $@
