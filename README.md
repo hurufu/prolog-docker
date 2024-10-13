@@ -25,7 +25,7 @@ pre-build binaries to simplify it.
 
     This command will create a Docker image and it will run `test.pl` for all
     currently supported engines. If you want to test another default goal or
-    different program file the simple redefine some variables:
+    different program file then simply redefine some variables:
 
         make run PROG=myprog.pl MAIN=mymain
 
