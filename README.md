@@ -10,6 +10,26 @@ Currently it supports only handful of them, but it will support much more. I
 have a lot of them working on my machine, but I will need to package them to
 properly include here.
 
+## Usage
+
+If you use Arch Linux you can build packages yourself, but I plan to host
+pre-build binaries to simplify it.
+
+ 1. Build packages (it may fail for a number of reasons, beware)
+
+        make repo
+
+ 2. If you've built all the packages (the hard part), then it just works:
+
+        make run
+
+    This command will create a Docker image and it will run `test.pl` for all
+    currently supported engines. If you want to test another default goal or
+    different program file the simple redefine some variables:
+
+        make run PROG=myprog.pl MAIN=mymain
+
+
 ## Currently working
 
 SWI, Scryer, GNU, Ciao, Trealla.
