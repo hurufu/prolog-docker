@@ -20,8 +20,8 @@ AUR_trealla := trealla
 .PHONY: run build clean
 run: build
 	docker run -it $(DOCKER_TAG)
-build: repo Dockerfile
-	docker build --tag $(DOCKER_TAG) .
+build: Dockerfile
+	docker build --compress --tag $(DOCKER_TAG) .
 Dockerfile: export PACKAGES := $(foreach v,$(addprefix AUR_,$(PROLOGS)),$($v))
 Dockerfile: $(MAKEFILE_LIST)
 
