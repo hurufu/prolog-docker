@@ -51,7 +51,7 @@ trealla: $(PROG)
 repo: $(addprefix aur-,$(PROLOGS)) | repo/
 	find pkgs -name '*.pkg.*' -exec mv --verbose '{}' $| ';'
 aur-%: git-%
-	env -C pkgs/$* ionice -c3 nice -n19 makepkg -sr
+	env -C pkgs/$* ionice -c3 nice -n19 makepkg -srCcf
 git-%: | pkgs/%/.git
 	env -C pkgs/$* git pull
 pkgs/%/.git: | pkgs/
