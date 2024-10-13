@@ -15,6 +15,10 @@ AUR_scryer  := scryer-prolog
 AUR_swi     := swi-prolog-git
 AUR_trealla := trealla
 
+PREFIX      ?= /usr/local
+DESTDIR     ?= /
+BINDIR      := $(DESTDIR)$(PREFIX)/bin
+
 
 # Docker image ################################################################
 .PHONY: run build clean
@@ -89,6 +93,8 @@ pkgs/%/.git: | pkgs/
 
 
 # Entry point #################################################################
+.PHONY: install
+install: $(BINDIR)/prologs build
 prologs: export DOCKER_TAG  := $(DOCKER_TAG)
 prologs: export EXP_PROLOGS := $(PROLOGS)
 prologs: VARS := $$DOCKER_TAG,$$EXP_PROLOGS
@@ -100,3 +106,6 @@ prologs: VARS := $$DOCKER_TAG,$$EXP_PROLOGS
 
 %/:
 	mkdir -p $@
+
+$(BINDIR)/%: %
+	install -D --mode=555 $< $@
