@@ -1,12 +1,12 @@
 # All the Prologs
 
-🚧 This repo is work-in-progress, it isn't documented and may even not work!
+🚧 This repo is work-in-progress, it isn't documented and may not even work!
 
 The idea behind this repo is to have a usable docker container ultimately for
 *all* Prolog implementations out there, to be able to easily test portability
 of your code.
 
-Currently it support only handful of them, but it will support much more. I
+Currently it supports only handful of them, but it will support much more. I
 have a lot of them working on my machine, but I will need to package them to
 properly include here.
 
