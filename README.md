@@ -33,7 +33,8 @@ pre-build binaries to simplify it.
 
         make install
 
-    Then you can go to any folder in just call to run `myprog.pl` by all Prologs:
+    Then you can `cd` into any folder and in order to run `myprog.pl` by all
+    Prologs just do:
 
         prologs -g mygoal myprog.pl
 
