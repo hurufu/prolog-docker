@@ -32,7 +32,9 @@ pre-build binaries to simplify it.
 
 ## Currently working
 
-SWI, Scryer, GNU, Ciao, Trealla.
+SWI, Scryer, GNU, Ciao[^1], Trealla.
+
+[^1]: Upstream package currently fails to run in a clean environment.
 
 ## Anticipated implementations
 
