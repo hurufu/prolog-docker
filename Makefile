@@ -1,11 +1,11 @@
 DOCKER_TAG  := prolog-testbed
 
 # All supported Prolog implementations
-PACKAGES    := prologs
-PACKAGES    += ciao-lang xsb-prolog
-#gprolog scryer-prolog swi-prolog-git trealla
-#PACKAGES    += eclipse-clp bprolog binprolog xsb-prolog
-#PACKAGES    += doge-node projog tau-prolog tuprolog poplog-git
+PACKAGES    :=
+PACKAGES    += prologs
+PACKAGES    += ciao-lang xsb-prolog gprolog scryer-prolog swi-prolog-git
+PACKAGES    += eclipse-clp bprolog binprolog trealla
+PACKAGES    += doge-node projog tau-prolog tuprolog poplog-git
 
 # Docker image ################################################################
 .PHONY: run build clean
