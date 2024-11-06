@@ -5,7 +5,7 @@ PACKAGES    :=
 PACKAGES    += prologs
 PACKAGES    += ciao-lang xsb-prolog gprolog scryer-prolog swi-prolog-git
 PACKAGES    += eclipse-clp bprolog binprolog trealla
-PACKAGES    += dogelog-node projog tau-prolog tuprolog poplog-git
+PACKAGES    += dogelog projog tau-prolog tuprolog poplog-git
 
 # Docker image ################################################################
 .PHONY: run build clean
