@@ -2,7 +2,7 @@ FROM archlinux:base-devel AS construction-site
 COPY 00-pacman-nopasswd /etc/sudoers.d/
 RUN <<EOT
     pacman -Syu --noconfirm
-    pacman -S --noconfirm git
+    pacman -S --noconfirm git cmake
     useradd -m builder
     chown builder /opt
     chmod 775 /opt
@@ -13,7 +13,7 @@ WORKDIR /home/builder
 COPY --chown=builder Makefile .
 RUN <<EOT
     git config --global init.defaultBranch master
-    make -j1 -O repo
+    make -j$(nproc) -O repo
 EOT
 
 FROM archlinux:base AS stage
