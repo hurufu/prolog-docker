@@ -2,7 +2,7 @@ FROM archlinux:base-devel AS construction-site
 COPY 00-pacman-nopasswd /etc/sudoers.d/
 RUN <<EOT
     pacman -Syu --noconfirm
-    pacman -S --noconfirm git cmake
+    pacman -S --noconfirm git cmake ninja
     useradd -m builder
     chown builder /opt
     chmod 775 /opt
