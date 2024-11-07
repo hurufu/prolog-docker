@@ -3,7 +3,7 @@ DOCKER_TAG  := prolog-testbed
 # All supported Prolog implementations
 PACKAGES    :=
 PACKAGES    += prologs
-PACKAGES    += ciao-lang xsb-prolog gprolog scryer-prolog swi-prolog-git
+PACKAGES    += ciao-lang xsb-prolog gprolog scryer-prolog
 PACKAGES    += eclipse-clp bprolog binprolog trealla
 PACKAGES    += dogelog projog tau-prolog tuprolog
 
